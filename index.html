@@ -5,14 +5,42 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <link href="/dist/output.css" rel="stylesheet" />
+    <link href="/src/style.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="app" class="contaeinr mx-auto px-4 py-8">
-      <h1 class="text-3xl font-bold">My Store</h1>
+    <div id="app" class="container relative px-4 py-8 mx-auto">
+      <nav class="flex items-center justify-between">
+        <h1 class="text-3xl font-bold">
+          <span class=""> My Store </span>
+        </h1>
+        <button
+          type="button"
+          class="p-2 text-green-900 rounded-lg hover:bg-green-200"
+        >
+          <span>Cart</span>
+          <span class="hidden text-xs">3</span>
+        </button>
+      </nav>
+      <div id="products" class="grid grid-cols-2 gap-2 mt-8"></div>
 
-      <div id="products"></div>
+      <!--  cart-layer-->
+      <div class="fixed inset-0 top-0 hidden w-1/2 cart-layer">
+        <div
+          class="fixed top-0 bottom-0 left-0 w-1/2 bg-black opacity-30"
+        ></div>
+
+        <div
+          class="fixed top-0 bottom-0 right-0 w-1/2 px-2 py-4 bg-white opacity-30"
+        >
+          <div class="flex justify-end">
+            <button type="button" class="text-green-800">Close</button>
+          </div>
+
+          <div class="cart_items"></div>
+        </div>
+      </div>
     </div>
-    <script type="module" src="/main.js"></script>
+
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
