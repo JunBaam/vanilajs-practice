@@ -15,15 +15,25 @@ async function getProducts() {
   }
 }
 
+function findElement(startingElement, selector) {
+  let currentElement = startingElement;
+
+  while (currentElement) {
+    if (currentElement.matches(selector)) {
+      return currentElement;
+    }
+    currentElement = currentElement.parentElement;
+  }
+  return null;
+}
+
 async function main() {
   const products = await getProducts();
 
-  console.log("getProducts()", products);
-
   document.querySelector("#products").innerHTML = products
     .map(
-      (product) => `
-  <div>
+      (product, index) => `
+  <div class="product" data-product-id="${product.id}" data-product-index="${index}">
   <img src="${product.images[0]}" alt="Images of ${product.name}"/>
   <p>${product.name}</p>
   </div>
@@ -41,7 +51,20 @@ async function main() {
     )
     .join("");
 
-  // document.querySelectorAll("");
+  document.querySelector("#products").addEventListener("click", (event) => {
+    const targetElement = event.target;
+    const productElement = findElement(targetElement, ".product");
+    const productId = productElement.getAttribute("data-product-id");
+    const productIndex = productElement.getAttribute("data-product-index");
+    const product = products[productIndex];
+    console.log("product", product);
+
+    if (targetElement.matches(".btn-decrease")) {
+      console.log("감소");
+    } else if (targetElement.matches(".btn-increase")) {
+      console.log("증가");
+    }
+  });
 }
 
 main();
